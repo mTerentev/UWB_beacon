@@ -3,6 +3,7 @@ import scipy as sp
 import pandas as pd
 
 
+
 def read_file_data(filename: str, min_num_of_measurements=10) -> pd.DataFrame:
     file = open(filename, mode='r', encoding='utf-8-sig')
     lines = file.readlines()
@@ -11,11 +12,12 @@ def read_file_data(filename: str, min_num_of_measurements=10) -> pd.DataFrame:
     dict_of_results = {}
     i = 0
     dict_blocks = {}
-
+    pass_strings = ['OK', 'an1', 'an2', 'an3']
     for line in lines:
         # clear all garbage lines from the file
-        if not line in ['\r\n', '\n', 'hello dwm1000!\n', 'init pass!\n', 'ERROR\n', 'AIT-BU01-DB V100 T2020-5-17\n',
-                        'device:TAG ID:0\n']:
+        # if not line in ['\r\n', '\n', 'hello dwm1000!\n', 'init pass!\n', 'ERROR\n', 'AIT-BU01-DB V100 T2020-5-17\n',
+        #                 'device:TAG ID:0\n', 'device:anchor ID:1', 'device:TAG ID:2', ]:
+        if any(pass_string in line for pass_string in pass_strings):
             # Use the "OK" line as splitter for data
             if 'OK' in line:
                 # check did we collect any useful data before the "OK" line
